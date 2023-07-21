@@ -3,9 +3,10 @@ package ru.isshepelev.carsalonapi.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.isshepelev.carsalonapi.entity.Car;
-import ru.isshepelev.carsalonapi.entity.DTO.CarDTO;
+import ru.isshepelev.carsalonapi.entity.Car.Car;
+import ru.isshepelev.carsalonapi.entity.Car.DTO.CarDTO;
 import ru.isshepelev.carsalonapi.service.CarService;
+import ru.isshepelev.carsalonapi.service.impl.CarServiceImpl;
 
 import java.util.List;
 
@@ -26,5 +27,17 @@ public class CarController {
     @PostMapping("/create")
     public ResponseEntity<Car> create(@Valid @RequestBody CarDTO carDTO){
         return ResponseEntity.ok(carService.createCar(carDTO));
+    }
+    @PutMapping("/update/{car_id}")
+    public ResponseEntity<Void> updateCar(@RequestBody CarDTO carDTO,
+                      @PathVariable String car_id){
+        carService.update(carDTO,car_id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/delete/{car_id}")
+    public ResponseEntity<Void> delete(@PathVariable String car_id){
+        carService.deleteCar(car_id);
+        return ResponseEntity.noContent().build();
     }
 }

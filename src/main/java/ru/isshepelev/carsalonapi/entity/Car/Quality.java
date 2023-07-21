@@ -1,4 +1,4 @@
-package ru.isshepelev.carsalonapi.entity;
+package ru.isshepelev.carsalonapi.entity.Car;
 
 import lombok.Data;
 
