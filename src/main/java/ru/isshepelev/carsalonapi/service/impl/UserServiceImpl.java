@@ -1,7 +1,7 @@
 package ru.isshepelev.carsalonapi.service.impl;
 
 import org.springframework.stereotype.Service;
-import ru.isshepelev.carsalonapi.entity.Car.Car;
+import ru.isshepelev.carsalonapi.entity.car.Car;
 import ru.isshepelev.carsalonapi.entity.user.DTO.UserDTO;
 import ru.isshepelev.carsalonapi.entity.user.User;
 import ru.isshepelev.carsalonapi.repository.CarRepository;

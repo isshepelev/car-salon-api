@@ -1,7 +1,5 @@
 package ru.isshepelev.carsalonapi.service;
 
-import org.springframework.http.ResponseEntity;
-import ru.isshepelev.carsalonapi.entity.Car.DTO.CarDTO;
 import ru.isshepelev.carsalonapi.entity.user.DTO.UserDTO;
 import ru.isshepelev.carsalonapi.entity.user.User;
 

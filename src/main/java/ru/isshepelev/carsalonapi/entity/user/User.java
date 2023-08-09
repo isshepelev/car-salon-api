@@ -4,7 +4,7 @@ package ru.isshepelev.carsalonapi.entity.user;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.isshepelev.carsalonapi.entity.Car.Car;
+import ru.isshepelev.carsalonapi.entity.car.Car;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

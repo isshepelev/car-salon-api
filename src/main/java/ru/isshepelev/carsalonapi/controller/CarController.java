@@ -3,10 +3,9 @@ package ru.isshepelev.carsalonapi.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.isshepelev.carsalonapi.entity.Car.Car;
-import ru.isshepelev.carsalonapi.entity.Car.DTO.CarDTO;
+import ru.isshepelev.carsalonapi.entity.car.Car;
+import ru.isshepelev.carsalonapi.entity.car.DTO.CarDTO;
 import ru.isshepelev.carsalonapi.service.CarService;
-import ru.isshepelev.carsalonapi.service.impl.CarServiceImpl;
 
 import java.util.List;
 
