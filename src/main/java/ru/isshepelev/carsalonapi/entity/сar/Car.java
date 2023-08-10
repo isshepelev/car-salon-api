@@ -1,4 +1,4 @@
-package ru.isshepelev.carsalonapi.entity.car;
+package ru.isshepelev.carsalonapi.entity.сar;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

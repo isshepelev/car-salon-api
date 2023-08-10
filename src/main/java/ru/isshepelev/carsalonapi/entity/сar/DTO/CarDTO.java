@@ -1,8 +1,8 @@
-package ru.isshepelev.carsalonapi.entity.car.DTO;
+package ru.isshepelev.carsalonapi.entity.сar.DTO;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import ru.isshepelev.carsalonapi.entity.car.Characteristics;
+import ru.isshepelev.carsalonapi.entity.сar.Characteristics;
 
 import java.math.BigDecimal;
 

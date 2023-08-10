@@ -21,23 +21,25 @@ public class JobController {
 
 
     @GetMapping()
-    public ResponseEntity<List<Job>> workList(){
+    public ResponseEntity<List<Job>> workList() {
         return ResponseEntity.ok(jobService.getWorkList());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Job> createJob(@RequestBody JobDTO jobDTO){
+    public ResponseEntity<Job> createJob(@RequestBody JobDTO jobDTO) {
         return ResponseEntity.ok(jobService.create(jobDTO));
     }
+
     @DeleteMapping("/delete/{jobId}")
-    public ResponseEntity<Void> deleteJob(@PathVariable String jobId){
+    public ResponseEntity<Void> deleteJob(@PathVariable String jobId) {
         jobService.delete(jobId);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/update/{jobId}")
     public ResponseEntity<Void> updateJob(@PathVariable String jobId,
-                                          @RequestBody JobPaymentUpdateDTO jobPaymentUpdateDTO){
-        jobService.update(jobId,jobPaymentUpdateDTO);
+                                          @RequestBody JobPaymentUpdateDTO jobPaymentUpdateDTO) {
+        jobService.update(jobId, jobPaymentUpdateDTO);
         return ResponseEntity.noContent().build();
     }
 }

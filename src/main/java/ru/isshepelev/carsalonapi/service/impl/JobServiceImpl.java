@@ -23,7 +23,7 @@ public class JobServiceImpl implements JobService {
     public Job create(JobDTO jobDTO) {
 
         Optional<Job> existingJob = jobRepository.findByTitle(jobDTO.getTitle());
-        if (existingJob.isPresent()){
+        if (existingJob.isPresent()) {
             throw new RuntimeException("this work already exists");
         }
 
@@ -46,7 +46,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public void update(String jobId, JobPaymentUpdateDTO jobPaymentUpdateDTO) {
         Optional<Job> jobOptional = jobRepository.findById(jobId);
-        if (jobOptional.isPresent()){
+        if (jobOptional.isPresent()) {
             Job job = jobOptional.get();
             job.setPayment(jobPaymentUpdateDTO.getPayment());
             jobRepository.save(job);
