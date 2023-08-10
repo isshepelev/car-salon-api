@@ -15,4 +15,6 @@ public interface JobService {
     void delete(String jobId);
 
     void update(String jobId, JobPaymentUpdateDTO jobPaymentUpdateDTO);
+    void startWork(String user_id);
+    void stopWork(String user_id);
 }

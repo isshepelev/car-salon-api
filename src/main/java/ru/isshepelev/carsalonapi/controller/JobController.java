@@ -42,4 +42,15 @@ public class JobController {
         jobService.update(jobId, jobPaymentUpdateDTO);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/start-work/{user_id}")
+    public ResponseEntity<String> startWork(@PathVariable String user_id){
+        jobService.startWork(user_id);
+        return ResponseEntity.ok("user successfully logged in");
+    }
+    @PostMapping("/stop-work/{user_id}")
+    public ResponseEntity<String> stopWork(@PathVariable String user_id){
+        jobService.stopWork(user_id);
+        return ResponseEntity.ok("the user has successfully completed the work");
+    }
 }
