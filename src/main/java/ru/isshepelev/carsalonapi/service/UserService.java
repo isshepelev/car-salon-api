@@ -11,5 +11,7 @@ public interface UserService {
     void update(UserDTO userDTO, String userId);
     void deleteUser(String userId);
     void userBuyCar(String userId, String carId);
+    void addWork(String user_id,String job_id);
+    void deleteJobForUser(String user_id);
 
 }

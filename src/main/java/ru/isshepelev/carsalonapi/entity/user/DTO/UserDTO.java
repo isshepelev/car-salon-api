@@ -1,6 +1,7 @@
 package ru.isshepelev.carsalonapi.entity.user.DTO;
 
 import lombok.Data;
+import ru.isshepelev.carsalonapi.entity.job.Job;
 
 import java.util.Date;
 
@@ -10,5 +11,5 @@ public class UserDTO {
     private String surname;
     private int age;
     private Date birthDate;
-    private String job;
+//    private Job job;
 }

@@ -1,6 +1,7 @@
 package ru.isshepelev.carsalonapi.entity.job;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,6 +16,4 @@ public class Job {
     private String title;
     private BigDecimal payment;
 
-    @DBRef
-    private User user;
 }

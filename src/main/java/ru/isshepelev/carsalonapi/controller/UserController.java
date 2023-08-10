@@ -49,4 +49,17 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/add-work/{user_id}/{job_id}")
+    public ResponseEntity<Void> addJobToUser(@PathVariable String user_id,
+                                             @PathVariable String job_id){
+        userService.addWork(user_id,job_id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/delete-work/{user_id}")
+    public ResponseEntity<Void> deleteJobToUser(@PathVariable String user_id){
+        userService.deleteJobForUser(user_id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
