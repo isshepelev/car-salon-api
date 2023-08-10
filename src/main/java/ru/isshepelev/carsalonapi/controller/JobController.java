@@ -2,13 +2,12 @@ package ru.isshepelev.carsalonapi.controller;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.isshepelev.carsalonapi.entity.user.JobEnum;
+import org.springframework.web.bind.annotation.*;
+import ru.isshepelev.carsalonapi.entity.job.DTO.JobDTO;
+import ru.isshepelev.carsalonapi.entity.job.DTO.JobPaymentUpdateDTO;
+import ru.isshepelev.carsalonapi.entity.job.Job;
 import ru.isshepelev.carsalonapi.service.JobService;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -20,8 +19,25 @@ public class JobController {
         this.jobService = jobService;
     }
 
+
     @GetMapping()
-    public List<JobEnum> ListJob(){
-        return Arrays.asList(JobEnum.values());
+    public ResponseEntity<List<Job>> workList(){
+        return ResponseEntity.ok(jobService.getWorkList());
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Job> createJob(@RequestBody JobDTO jobDTO){
+        return ResponseEntity.ok(jobService.create(jobDTO));
+    }
+    @DeleteMapping("/delete/{jobId}")
+    public ResponseEntity<Void> deleteJob(@PathVariable String jobId){
+        jobService.delete(jobId);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/update/{jobId}")
+    public ResponseEntity<Void> updateJob(@PathVariable String jobId,
+                                          @RequestBody JobPaymentUpdateDTO jobPaymentUpdateDTO){
+        jobService.update(jobId,jobPaymentUpdateDTO);
+        return ResponseEntity.noContent().build();
     }
 }
