@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.isshepelev.carsalonapi.entity.user.DTO.UserDTO;
 import ru.isshepelev.carsalonapi.entity.user.User;
+import ru.isshepelev.carsalonapi.entity.сar.DTO.CarSaleDto;
 import ru.isshepelev.carsalonapi.service.UserService;
 import ru.isshepelev.carsalonapi.service.impl.UserServiceImpl;
 
@@ -46,6 +47,15 @@ public class UserController {
     public ResponseEntity<Void> userBuyCar(@PathVariable String user_id,
                                            @PathVariable String car_id) {
         userService.userBuyCar(user_id, car_id);
+        return ResponseEntity.noContent().build();
+    }
+
+
+    @PostMapping("/sale-car/{user_id}/{car_id}")
+    public ResponseEntity<Void> userSaleCar(@PathVariable String user_id,
+                                            @PathVariable String car_id,
+                                            @RequestBody CarSaleDto carSaleDto){
+        userService.userSaleCar(user_id,car_id,carSaleDto);
         return ResponseEntity.noContent().build();
     }
 

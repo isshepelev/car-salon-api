@@ -5,6 +5,9 @@ import ru.isshepelev.carsalonapi.entity.job.Job;
 import ru.isshepelev.carsalonapi.entity.сar.Car;
 import ru.isshepelev.carsalonapi.entity.user.DTO.UserDTO;
 import ru.isshepelev.carsalonapi.entity.user.User;
+import ru.isshepelev.carsalonapi.entity.сar.Characteristics;
+import ru.isshepelev.carsalonapi.entity.сar.DTO.CarSaleDto;
+import ru.isshepelev.carsalonapi.entity.сar.Quality;
 import ru.isshepelev.carsalonapi.repository.CarRepository;
 import ru.isshepelev.carsalonapi.repository.JobRepository;
 import ru.isshepelev.carsalonapi.repository.UserRepository;
@@ -91,6 +94,40 @@ public class UserServiceImpl implements UserService {
             } else throw new RuntimeException("insufficient funds");
 
         } else throw new RuntimeException("user or machine does not exist");
+    }
+
+    @Override
+    public void userSaleCar(String userId, String carId, CarSaleDto carSaleDto) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            for (int i = 0; i < user.getCarCount(); i++) {
+                if (carId.equals(user.getCarList().get(i).getSerialNumber())) {
+                    Car car = user.getCarList().get(i);
+
+                    Car saleCar = new Car();
+                    saleCar.setSerialNumber(car.getSerialNumber());
+                    saleCar.setDateRelease(car.getDateRelease());
+                    saleCar.setCompany(car.getCompany());
+                    saleCar.setModel(car.getModel());
+                    saleCar.setPrice(carSaleDto.getPrice());
+
+                    Characteristics characteristics = car.getCharacteristics();
+                    characteristics.setMileage(carSaleDto.getCharacteristics().getMileage());
+                    characteristics.setQuality(Quality.USED);
+
+                    saleCar.setCharacteristics(characteristics);
+
+                    user.getCarList().remove(i);
+                    user.setCarCount(user.getCarCount() - 1);
+                    BigDecimal walletUser = user.getWallet();
+                    user.setWallet(walletUser.add(carSaleDto.getPrice()));
+                    carRepository.save(saleCar);
+                    userRepository.save(user);
+                    return;
+                }
+            }
+        } else throw new RuntimeException("user not found");
     }
 
     @Override
