@@ -1,0 +1,469 @@
+openapi: 3.0.1
+info:
+  title: Loyalty System Api
+  contact:
+    name: Ilya Shepelev
+    url: https://issehepelv.ru
+    email: isshepelev@gmail.com
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  "/users/update/{user_id}":
+    put:
+      tags:
+      - user-controller
+      operationId: update
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+  "/job/update/{jobId}":
+    put:
+      tags:
+      - job-controller
+      operationId: updateJob
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/JobPaymentUpdateDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+  "/cars/update/{car_id}":
+    put:
+      tags:
+      - car-controller
+      operationId: updateCar
+      parameters:
+      - name: car_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CarDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+  "/users/sale-car/{user_id}/{car_id}":
+    post:
+      tags:
+      - user-controller
+      operationId: userSaleCar
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: car_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CarSaleDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+  "/users/delete-work/{user_id}":
+    post:
+      tags:
+      - user-controller
+      operationId: deleteJobToUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  "/users/create":
+    post:
+      tags:
+      - user-controller
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UserDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/User"
+  "/users/buy-car/{user_id}/{car_id}":
+    post:
+      tags:
+      - user-controller
+      operationId: userBuyCar
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: car_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  "/users/add-work/{user_id}/{job_id}":
+    post:
+      tags:
+      - user-controller
+      operationId: addJobToUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  "/job/stop-work/{user_id}":
+    post:
+      tags:
+      - job-controller
+      operationId: stopWork
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/job/start-work/{user_id}":
+    post:
+      tags:
+      - job-controller
+      operationId: startWork
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/job/create":
+    post:
+      tags:
+      - job-controller
+      operationId: createJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/JobDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/Job"
+  "/cars/create":
+    post:
+      tags:
+      - car-controller
+      summary: asd
+      description: asd
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CarDTO"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/Car"
+  "/users":
+    get:
+      tags:
+      - user-controller
+      operationId: allUsers
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/User"
+  "/job":
+    get:
+      tags:
+      - job-controller
+      operationId: workList
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Job"
+  "/cars":
+    get:
+      tags:
+      - car-controller
+      operationId: allCars
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Car"
+  "/users/delete/{user_id}":
+    delete:
+      tags:
+      - user-controller
+      operationId: delete
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  "/job/delete/{jobId}":
+    delete:
+      tags:
+      - job-controller
+      operationId: deleteJob
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+  "/cars/delete/{car_id}":
+    delete:
+      tags:
+      - car-controller
+      operationId: delete_1
+      parameters:
+      - name: car_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        surname:
+          type: string
+        age:
+          type: integer
+          format: int32
+        birthDate:
+          type: string
+          format: date-time
+    JobPaymentUpdateDTO:
+      type: object
+      properties:
+        payment:
+          type: number
+    CarDTO:
+      required:
+      - characteristics
+      - company
+      - model
+      - price
+      type: object
+      properties:
+        company:
+          type: string
+        model:
+          type: string
+        price:
+          type: number
+        characteristics:
+          "$ref": "#/components/schemas/Characteristics"
+    Characteristics:
+      required:
+      - color
+      - quality
+      - typeCar
+      type: object
+      properties:
+        quality:
+          type: string
+          enum:
+          - NEW
+          - USED
+          - DEMOLITION
+        color:
+          type: string
+        typeCar:
+          type: string
+          enum:
+          - SEDAN
+          - HATCHBACK
+          - ESTATE
+          - CROSSOVER
+          - COUPE
+          - SPORT
+          - LIMOUSINE
+        mileage:
+          maximum: 5000000
+          minimum: 0
+          type: integer
+          format: int32
+    CarSaleDto:
+      type: object
+      properties:
+        price:
+          type: number
+        characteristics:
+          "$ref": "#/components/schemas/CharacteristicsDTO"
+    CharacteristicsDTO:
+      type: object
+      properties:
+        mileage:
+          type: integer
+          format: int32
+    Car:
+      required:
+      - characteristics
+      - company
+      - dateRelease
+      - model
+      - price
+      - serialNumber
+      type: object
+      properties:
+        serialNumber:
+          type: string
+        dateRelease:
+          type: string
+          format: date-time
+        company:
+          type: string
+        model:
+          type: string
+        price:
+          type: number
+        characteristics:
+          "$ref": "#/components/schemas/Characteristics"
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        payment:
+          type: number
+    User:
+      type: object
+      properties:
+        personalId:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        age:
+          type: integer
+          format: int32
+        birthDate:
+          type: string
+          format: date-time
+        wallet:
+          type: number
+        carCount:
+          type: integer
+          format: int32
+        carList:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Car"
+        job:
+          "$ref": "#/components/schemas/Job"
+    JobDTO:
+      type: object
+      properties:
+        title:
+          type: string
+        payment:
+          type: number
