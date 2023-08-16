@@ -1,5 +1,7 @@
 package ru.isshepelev.carsalonapi.service.impl;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.isshepelev.carsalonapi.entity.job.DTO.JobDTO;
 import ru.isshepelev.carsalonapi.entity.job.DTO.JobPaymentUpdateDTO;
@@ -48,7 +50,12 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void delete(String jobId) {
-        jobRepository.deleteById(jobId);
+        Optional<Job> jobOptional = jobRepository.findById(jobId);
+        if (jobOptional.isPresent()) {
+            jobRepository.deleteById(jobId);
+        } else {
+            throw new RuntimeException("Job not found");
+        }
     }
 
     @Override
@@ -76,6 +83,10 @@ public class JobServiceImpl implements JobService {
         Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+
+            if (user.getStartTime() == null){
+                throw new RuntimeException("to complete the work you need to start it");
+            }
 
             LocalDateTime endTime = LocalDateTime.now();
             long secondsDifference = Duration.between(user.getStartTime(), endTime).getSeconds();
