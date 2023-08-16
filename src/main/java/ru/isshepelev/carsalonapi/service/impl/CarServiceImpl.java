@@ -31,7 +31,7 @@ public class CarServiceImpl implements CarService {
         car.setCompany(carDTO.getCompany());
         car.setModel(carDTO.getModel());
         car.setPrice(carDTO.getPrice());
-        if (carDTO.getCharacteristics().getMileage() <= 1000000 && carDTO.getCharacteristics().getMileage() >= 0) {
+        if (carDTO.getCharacteristics().getMileage() <= 2000001 && carDTO.getCharacteristics().getMileage() >= 0) {
             car.setCharacteristics(carDTO.getCharacteristics());
             return carRepository.save(car);
         } else {
@@ -47,17 +47,20 @@ public class CarServiceImpl implements CarService {
             car.setPrice(carDTO.getPrice());
             car.setModel(carDTO.getModel());
             car.setCompany(carDTO.getCompany());
-            if (carDTO.getCharacteristics().getMileage() <= 1000000 && carDTO.getCharacteristics().getMileage() >= 0) {
+            if (carDTO.getCharacteristics().getMileage() <= 2000000 && carDTO.getCharacteristics().getMileage() >= 0) {
                 car.setCharacteristics(carDTO.getCharacteristics());
                 carRepository.save(car);
             } else {
                 throw new IllegalArgumentException("mileage does not match");
             }
-        }
+        } else throw new RuntimeException("car not found");
     }
 
     @Override
     public void deleteCar(String carId) {
-        carRepository.deleteById(carId);
+        Optional<Car> carOptional = carRepository.findById(carId);
+        if (carOptional.isPresent()) {
+            carRepository.deleteById(carId);
+        }else throw new RuntimeException("car not found");
     }
 }

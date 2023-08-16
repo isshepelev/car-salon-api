@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import ru.isshepelev.carsalonapi.entity.job.DTO.JobDTO;
 import ru.isshepelev.carsalonapi.entity.job.DTO.JobPaymentUpdateDTO;
 import ru.isshepelev.carsalonapi.entity.job.Job;
+import ru.isshepelev.carsalonapi.entity.user.User;
 import ru.isshepelev.carsalonapi.service.JobService;
+import ru.isshepelev.carsalonapi.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/job")
@@ -26,21 +30,21 @@ public class JobController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Job> createJob(@RequestBody JobDTO jobDTO) {
+    public ResponseEntity<Job> createJob(@Valid @RequestBody JobDTO jobDTO) {
         return ResponseEntity.ok(jobService.create(jobDTO));
     }
 
     @DeleteMapping("/delete/{jobId}")
-    public ResponseEntity<Void> deleteJob(@PathVariable String jobId) {
+    public ResponseEntity<String> deleteJob(@PathVariable String jobId) {
         jobService.delete(jobId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("successfully");
     }
 
     @PutMapping("/update/{jobId}")
-    public ResponseEntity<Void> updateJob(@PathVariable String jobId,
-                                          @RequestBody JobPaymentUpdateDTO jobPaymentUpdateDTO) {
+    public ResponseEntity<String> updateJob(@PathVariable String jobId,
+                                          @RequestBody @Valid JobPaymentUpdateDTO jobPaymentUpdateDTO) {
         jobService.update(jobId, jobPaymentUpdateDTO);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("successfully");
     }
 
     @PostMapping("/start-work/{user_id}")

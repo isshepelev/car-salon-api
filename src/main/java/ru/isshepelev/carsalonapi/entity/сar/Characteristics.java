@@ -4,22 +4,23 @@ package ru.isshepelev.carsalonapi.entity.сar;
 
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 
 @Data
 public class Characteristics {
-
-    @NotNull
+    @NotNull(message = "Quality must not be null")
     private Quality quality;
-    @NotNull
+
+    @Pattern(regexp = "[a-zA-Zа-яА-Я]+", message = "Color should contain only letters")
+    @NotBlank(message = "Color must not be blank")
     private String color;
-    @NotNull
+
+    @NotNull(message = "TypeCar must not be null")
     private TypeCar typeCar;
 
-    @Min(value = 0, message = "Mileage should not be less than 0")
-    @Max(value = 5000000, message = "Mileage should not be greater than 5000000")
+    @Min(value = 0, message = "Mileage must be greater than or equal to 0")
+    @Max(value = 2000000, message = "Mileage should be less than 2000000")
+    @NotNull(message = "Mileage must not be null")
     private Integer mileage;
 }

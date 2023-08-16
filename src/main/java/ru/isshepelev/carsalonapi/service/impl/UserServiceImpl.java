@@ -1,6 +1,7 @@
 package ru.isshepelev.carsalonapi.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import ru.isshepelev.carsalonapi.entity.job.Job;
 import ru.isshepelev.carsalonapi.entity.сar.Car;
 import ru.isshepelev.carsalonapi.entity.user.DTO.UserDTO;
@@ -41,7 +42,6 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setSurname(userDto.getSurname());
         user.setBirthDate(userDto.getBirthDate());
-//        user.setJob(userDto.getJob());
 
 
         user.setWallet(BigDecimal.valueOf(0));
@@ -64,14 +64,16 @@ public class UserServiceImpl implements UserService {
             user.setName(userDTO.getName());
             user.setSurname(userDTO.getSurname());
             user.setBirthDate(userDTO.getBirthDate());
-//            user.setJob(userDTO.getJob());
             userRepository.save(user);
-        }
+        } else throw new RuntimeException("User not found");
     }
 
     @Override
     public void deleteUser(String userId) {
-        userRepository.deleteById(userId);
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            userRepository.deleteById(userId);
+        }else throw new RuntimeException("User not found");
     }
 
     @Override
@@ -93,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
             } else throw new RuntimeException("insufficient funds");
 
-        } else throw new RuntimeException("user or machine does not exist");
+        } else throw new RuntimeException("user or car does not exist");
     }
 
     @Override
@@ -126,7 +128,7 @@ public class UserServiceImpl implements UserService {
                     userRepository.save(user);
                     return;
                 }
-            }
+            } throw new RuntimeException("car not found for user");
         } else throw new RuntimeException("user not found");
     }
 
@@ -154,6 +156,6 @@ public class UserServiceImpl implements UserService {
                 user.setJob(null);
                 userRepository.save(user);
             } else throw new RuntimeException("user " + user.getName() + " " + user.getSurname() + " unemployed");
-        }
+        }else throw new RuntimeException("user not found");
     }
 }

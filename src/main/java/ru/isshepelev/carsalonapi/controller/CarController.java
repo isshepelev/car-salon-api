@@ -30,15 +30,15 @@ public class CarController {
     }
 
     @PutMapping("/update/{car_id}")
-    public ResponseEntity<Void> updateCar(@RequestBody CarDTO carDTO,
+    public ResponseEntity<String> updateCar(@RequestBody @Valid CarDTO carDTO,
                                           @PathVariable String car_id) {
         carService.update(carDTO, car_id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("successfully");
     }
 
     @DeleteMapping("/delete/{car_id}")
-    public ResponseEntity<Void> delete(@PathVariable String car_id) {
+    public ResponseEntity<String> delete(@PathVariable String car_id) {
         carService.deleteCar(car_id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("successfully");
     }
 }
